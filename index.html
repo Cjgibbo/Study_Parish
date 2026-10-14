@@ -1,0 +1,606 @@
+<title>Study Parish</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+  /* Layout: single-column editorial scroll, gold thread accent, ecclesiastical warmth */
+  :root {
+    --bg: #FDFAF5;
+    --bg-warm: #F5F0E6;
+    --fg: #2C2417;
+    --fg-muted: #6B5D4D;
+    --gold: #8B6914;
+    --gold-light: #C9A84C;
+    --gold-faint: rgba(139,105,20,0.08);
+    --rule: rgba(139,105,20,0.25);
+    --card-bg: #FFFFFF;
+    --card-border: rgba(139,105,20,0.12);
+    --display: 'Cormorant Garamond', 'Georgia', serif;
+    --body: 'EB Garamond', 'Georgia', serif;
+    --ui: 'Inter', system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1A1611;
+      --bg-warm: #231E16;
+      --fg: #E8E0D4;
+      --fg-muted: #9C8E7C;
+      --gold: #C9A84C;
+      --gold-light: #8B6914;
+      --gold-faint: rgba(201,168,76,0.06);
+      --rule: rgba(201,168,76,0.2);
+      --card-bg: #272118;
+      --card-border: rgba(201,168,76,0.1);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1A1611;
+    --bg-warm: #231E16;
+    --fg: #E8E0D4;
+    --fg-muted: #9C8E7C;
+    --gold: #C9A84C;
+    --gold-light: #8B6914;
+    --gold-faint: rgba(201,168,76,0.06);
+    --rule: rgba(201,168,76,0.2);
+    --card-bg: #272118;
+    --card-border: rgba(201,168,76,0.1);
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 19px;
+    line-height: 1.65;
+    padding-inline: 20px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* ── Typography ── */
+  h1, h2, h3 { font-family: var(--display); }
+  h1 { font-size: 2.8em; font-weight: 700; line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+  h2 {
+    font-size: 1.05em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin: 0 0 0.6em;
+    font-family: var(--ui);
+  }
+  h3 {
+    font-size: 1.4em;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.15em;
+    color: var(--fg);
+  }
+
+  p { margin: 0 0 1em; }
+
+  .muted { color: var(--fg-muted); }
+  .gold { color: var(--gold); }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 4em 0 3em;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-series {
+    font-family: var(--ui);
+    font-size: 0.65em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 0.8em;
+  }
+  .hero h1 { margin-bottom: 0.3em; }
+  .hero-tagline {
+    font-family: var(--display);
+    font-size: 1.25em;
+    font-style: italic;
+    color: var(--fg-muted);
+    margin: 0.5em 0 0;
+    line-height: 1.4;
+  }
+  .hero-ref {
+    font-family: var(--ui);
+    font-size: 0.72em;
+    color: var(--fg-muted);
+    margin-top: 1.6em;
+    letter-spacing: 0.03em;
+  }
+  .hero-ref em { font-style: normal; color: var(--gold); }
+
+  /* ── Sections ── */
+  section {
+    padding: 3em 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  .section-intro {
+    font-size: 1.05em;
+    max-width: 620px;
+  }
+
+  /* ── Divider ── */
+  .dots {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.1em;
+    letter-spacing: 0.6em;
+    padding: 1em 0;
+  }
+
+  /* ── Volume grid ── */
+  .vol-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--card-border);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 1.5em;
+  }
+  .vol-item {
+    background: var(--card-bg);
+    padding: 1.1em 1.3em;
+    display: grid;
+    grid-template-columns: 2.2em 1fr auto;
+    align-items: baseline;
+    gap: 0.8em;
+  }
+  .vol-num {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.3em;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .vol-title {
+    font-family: var(--display);
+    font-size: 1.05em;
+    font-weight: 600;
+    line-height: 1.3;
+    min-width: 0;
+  }
+  .vol-title span {
+    display: block;
+    font-family: var(--ui);
+    font-size: 0.7em;
+    font-weight: 400;
+    color: var(--fg-muted);
+    margin-top: 0.15em;
+    letter-spacing: 0.01em;
+  }
+  .vol-count {
+    font-family: var(--ui);
+    font-size: 0.72em;
+    color: var(--fg-muted);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── Appendix list ── */
+  .app-group { margin-top: 1.8em; }
+  .app-group-label {
+    font-family: var(--ui);
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.8em;
+  }
+  .app-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+  .app-list li {
+    font-size: 0.95em;
+    line-height: 1.45;
+    padding-left: 1.2em;
+    position: relative;
+  }
+  .app-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+  .app-list .app-roman {
+    font-family: var(--ui);
+    font-size: 0.78em;
+    color: var(--fg-muted);
+    margin-right: 0.3em;
+  }
+
+  /* ── Audience cards ── */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1em;
+    margin-top: 1.5em;
+  }
+  .audience-card {
+    background: var(--gold-faint);
+    border-left: 3px solid var(--gold);
+    padding: 1.2em 1.3em;
+    border-radius: 0 4px 4px 0;
+  }
+  .audience-card h3 {
+    font-size: 1.05em;
+    margin-bottom: 0.3em;
+  }
+  .audience-card p {
+    font-size: 0.88em;
+    color: var(--fg-muted);
+    margin: 0;
+    line-height: 1.5;
+    font-family: var(--ui);
+  }
+
+  /* ── Method section ── */
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.8em;
+    margin-top: 1.5em;
+  }
+  .method-item {
+    text-align: center;
+    padding: 1.2em 0.8em;
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    background: var(--card-bg);
+  }
+  .method-item .label {
+    font-family: var(--ui);
+    font-size: 0.68em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 0.3em;
+  }
+  .method-item .desc {
+    font-family: var(--body);
+    font-size: 0.85em;
+    color: var(--fg-muted);
+    line-height: 1.4;
+  }
+
+  /* ── Companion shelf ── */
+  .companion-list {
+    margin-top: 1.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+  }
+  .companion-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
+    align-items: start;
+  }
+  .companion-badge {
+    font-family: var(--ui);
+    font-size: 0.65em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: var(--gold-faint);
+    padding: 0.4em 0.7em;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 0.2em;
+  }
+  .companion-item h3 { font-size: 1.1em; }
+  .companion-item p {
+    font-size: 0.9em;
+    color: var(--fg-muted);
+    margin: 0.2em 0 0;
+    line-height: 1.5;
+  }
+
+  /* ── Stats bar ── */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2.5em;
+    flex-wrap: wrap;
+    padding: 2em 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 2.4em;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-family: var(--ui);
+    font-size: 0.68em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+    margin-top: 0.3em;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 3em 0 4em;
+    font-family: var(--ui);
+    font-size: 0.75em;
+    color: var(--fg-muted);
+    letter-spacing: 0.02em;
+    line-height: 1.8;
+  }
+  footer .pub-name {
+    font-family: var(--display);
+    font-size: 1.5em;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.3em;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 500px) {
+    h1 { font-size: 2em; }
+    .hero { padding: 3em 0 2.5em; }
+    section { padding: 2.2em 0; }
+    .stats-bar { gap: 1.5em; }
+    .stat-num { font-size: 1.8em; }
+    .vol-item { grid-template-columns: 1.8em 1fr auto; gap: 0.5em; padding: 0.9em 1em; }
+    .vol-num { font-size: 1.1em; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .method-grid { grid-template-columns: repeat(2, 1fr); }
+    .companion-item { grid-template-columns: 1fr; }
+    .companion-badge { justify-self: start; }
+  }
+</style>
+
+<!-- ════════════════ HERO ════════════════ -->
+<div class="hero">
+  <div class="hero-series">Study Parish</div>
+  <h1>Shadows and Substance</h1>
+  <p class="hero-tagline">A Catholic Typological Series<br>Tracing the Arcs of Scripture from Figure to Fulfillment</p>
+  <p class="hero-ref"><em>Sturm & Róisín Publishing</em> · Fírinne Imprint</p>
+</div>
+
+<!-- ════════════════ STATS ════════════════ -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Volumes</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">58</div>
+    <div class="stat-label">Chapters</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">22</div>
+    <div class="stat-label">Appendixes</div>
+  </div>
+</div>
+
+<!-- ════════════════ WHAT IT IS ════════════════ -->
+<section>
+  <h2>What This Series Is</h2>
+  <div class="section-intro">
+    <p><em>Shadows and Substance</em> is a complete eight-volume series that traces the major images, persons, events, and institutions of the Old Testament forward through every major reference point in Scripture to their ultimate realization in Christ, the sacraments, and the life of the Church.</p>
+    <p>The title comes from the language of Hebrews, where the old covenant is described as a shadow of the things to come, and the substance belongs to Christ. Every chapter follows a single arc — the Lamb, the Temple, the Shepherd, the Bride — from its first appearance in Genesis through its fulfillment in the New Testament and beyond.</p>
+    <p>The series is written from within the Roman Catholic interpretive tradition, drawing deeply on the Church Fathers and the four senses of Scripture: literal, allegorical, moral, and anagogical. Commentary from the Fathers — Irenaeus, Augustine, Chrysostom, Cyril, Ambrose, Ephrem the Syrian, and many others — is woven throughout the prose, not relegated to footnotes.</p>
+  </div>
+</section>
+
+<!-- ════════════════ HOW IT STARTED ════════════════ -->
+<section>
+  <h2>How It Started</h2>
+  <div class="section-intro">
+    <p>The series grew out of a conviction that most Catholics never learn to read Scripture the way the Church Fathers read it — as a single, unified story where every figure casts a shadow forward and every fulfillment reaches back. Typology isn't a scholarly technique reserved for academics. It's the native reading of the Church from the apostles forward, and it belongs in the hands of ordinary believers.</p>
+    <p>Each chapter is written to be read independently, without a teacher in the room. The prose is authoritative but not academic — a knowledgeable Catholic author walking the reader through the evidence, honest about epistemological difficulties, and non-combative toward Protestant readers. The goal is understanding, not conversion.</p>
+  </div>
+</section>
+
+<!-- ════════════════ WHO IT'S FOR ════════════════ -->
+<section>
+  <h2>Who It's For</h2>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <h3>Catholic Laypeople</h3>
+      <p>Believers who want to see how the whole of Scripture holds together — and how the Mass, the sacraments, and the Marian doctrines are rooted in the biblical text, not added to it.</p>
+    </div>
+    <div class="audience-card">
+      <h3>Parish Study Groups</h3>
+      <p>Each chapter works as a standalone session. Companion study guides with discussion questions, reading assignments, and timing notes are in development.</p>
+    </div>
+    <div class="audience-card">
+      <h3>RCIA &amp; Converts</h3>
+      <p>For those entering the Church or recently received — a guided walk through the scriptural foundations underneath Catholic teaching, built from the ground up.</p>
+    </div>
+    <div class="audience-card">
+      <h3>Protestant Readers</h3>
+      <p>Written with Protestant objections in mind and addressed without hostility. The appendixes tackle the hard questions directly — Sola Scriptura, the Real Presence, the Marian doctrines, justification.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ THE METHOD ════════════════ -->
+<section>
+  <h2>The Interpretive Method</h2>
+  <p class="section-intro">Every chapter is built on the Catholic tradition of reading Scripture through four complementary lenses — the same method the Fathers used, formalized in the medieval period, and reaffirmed in the Catechism today.</p>
+  <div class="method-grid">
+    <div class="method-item">
+      <div class="label">Literal</div>
+      <div class="desc">What happened. The arc traced chronologically through Scripture.</div>
+    </div>
+    <div class="method-item">
+      <div class="label">Allegorical</div>
+      <div class="desc">What it points to. How each stop prefigures Christ, the Church, or the sacraments.</div>
+    </div>
+    <div class="method-item">
+      <div class="label">Moral</div>
+      <div class="desc">What it means for your life. Applied where natural, not forced.</div>
+    </div>
+    <div class="method-item">
+      <div class="label">Anagogical</div>
+      <div class="desc">Where it's all heading. Heaven, resurrection, the New Jerusalem.</div>
+    </div>
+  </div>
+</section>
+
+<div class="dots">• • •</div>
+
+<!-- ════════════════ THE VOLUMES ════════════════ -->
+<section style="border-top: none; padding-top: 0;">
+  <h2>The Eight Volumes</h2>
+  <div class="vol-grid">
+    <div class="vol-item">
+      <div class="vol-num">1</div>
+      <div class="vol-title">The Lamb and the Altar<span>Arcs of Sacrifice</span></div>
+      <div class="vol-count">7 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">2</div>
+      <div class="vol-title">The Dwelling Place<span>Arcs of Presence</span></div>
+      <div class="vol-count">7 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">3</div>
+      <div class="vol-title">Bread and Water<span>Arcs of the Sacraments</span></div>
+      <div class="vol-count">8 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">4</div>
+      <div class="vol-title">The Throne and the Shepherd<span>Arcs of Authority</span></div>
+      <div class="vol-count">8 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">5</div>
+      <div class="vol-title">The Woman and the Promise<span>Marian Arcs</span></div>
+      <div class="vol-count">7 chapters + 3 appendixes</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">6</div>
+      <div class="vol-title">The Garden and the City<span>Arcs of Creation &amp; Restoration</span></div>
+      <div class="vol-count">8 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">7</div>
+      <div class="vol-title">The Serpent and the Seed<span>Arcs of Spiritual Warfare</span></div>
+      <div class="vol-count">7 chapters</div>
+    </div>
+    <div class="vol-item">
+      <div class="vol-num">8</div>
+      <div class="vol-title">The Bride and the Covenant<span>Arcs of Relationship</span></div>
+      <div class="vol-count">6 chapters</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ APPENDIXES ════════════════ -->
+<section>
+  <h2>The Appendixes</h2>
+  <p class="section-intro">Twenty-two companion pieces that go deeper — bridge work spanning the whole series and topical deep dives tied to individual volumes. The series appendixes address the foundational questions a thoughtful reader will bring: How do Catholics read Scripture? What is the Church's authority? Why the Marian doctrines?</p>
+
+  <div class="app-group">
+    <div class="app-group-label">Series Appendixes</div>
+    <ul class="app-list">
+      <li><span class="app-roman">I.</span> Sola Scriptura vs. Sacred Tradition</li>
+      <li><span class="app-roman">II.</span> The Authority of the Church</li>
+      <li><span class="app-roman">III.</span> The Four Senses of Scripture</li>
+      <li><span class="app-roman">IV.</span> The Sacramental Imagination</li>
+      <li><span class="app-roman">V.</span> The Development of Doctrine</li>
+      <li><span class="app-roman">VI.</span> The Real Presence and the Eucharistic Sacrifice</li>
+      <li><span class="app-roman">VII.</span> The Marian Doctrines</li>
+      <li><span class="app-roman">VIII.</span> The Communion of Saints</li>
+      <li><span class="app-roman">IX.</span> Israel and the Church</li>
+      <li><span class="app-roman">X.</span> The Temple in Heaven</li>
+      <li><span class="app-roman">XI.</span> Covenant Theology and the Mass</li>
+      <li><span class="app-roman">XII.</span> The Church Fathers as Interpreters</li>
+      <li><span class="app-roman">XIII.</span> Typology and the Liturgical Year</li>
+      <li><span class="app-roman">XIV.</span> The Canon of Scripture as Typological Witness</li>
+      <li><span class="app-roman">XV.</span> Early Marian Devotion in the Fathers</li>
+      <li><span class="app-roman">XVI.</span> Justification — Faith, Works, and Grace</li>
+      <li><span class="app-roman">XVII.</span> Purgatory and Prayers for the Dead</li>
+      <li><span class="app-roman">XVIII.</span> Synagogue to Sanctuary</li>
+      <li><span class="app-roman">XIX.</span> Pride, Concupiscence, and the Weight of the Self</li>
+    </ul>
+  </div>
+
+  <div class="app-group">
+    <div class="app-group-label">Volume 5 — Marian Deep Dives</div>
+    <ul class="app-list">
+      <li><span class="app-roman">A.</span> The Sinlessness of Mary and the Road to Dogma</li>
+      <li><span class="app-roman">B.</span> Marian Apparitions</li>
+      <li><span class="app-roman">C.</span> The Assumption</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════ COMPANION SHELF ════════════════ -->
+<section>
+  <h2>Companion Products</h2>
+  <p class="section-intro">The main series anchors a broader shelf of related works, each designed for a different reader or setting.</p>
+  <div class="companion-list">
+    <div class="companion-item">
+      <div class="companion-badge">In Development</div>
+      <div>
+        <h3>Parish Study Companions</h3>
+        <p>Lesson plans with discussion questions, reading assignments, prayers, and timing notes — designed for small groups working through the series together.</p>
+      </div>
+    </div>
+    <div class="companion-item">
+      <div class="companion-badge">In Development</div>
+      <div>
+        <h3>Kids Arc Series</h3>
+        <p>Illustrated children's versions of select arcs — the Lamb, the Shepherd, Light, Water, Bread, the Garden, the Dragon, and the Ark of the Covenant — with age-appropriate language and a narrative focus.</p>
+      </div>
+    </div>
+    <div class="companion-item">
+      <div class="companion-badge">Complete</div>
+      <div>
+        <h3>Promise and Fulfillment</h3>
+        <p>A companion series adapting the typological content for Protestant readers — same arcs, reframed within the interpretive tradition that Protestant readers share. 57 chapters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ SOURCES ════════════════ -->
+<section>
+  <h2>Sources &amp; Standards</h2>
+  <div class="section-intro">
+    <p>Scripture throughout is the Revised Standard Version, Catholic Edition. The Church Fathers and Doctors of the Church — from Irenaeus and Justin Martyr through Thomas Aquinas and John of Damascus — are public domain sources woven directly into the prose. Magisterial references draw on the Catechism, conciliar documents, and papal encyclicals where they illuminate the topic.</p>
+    <p>No modern theologians' published works are incorporated. Where a modern figure contributes a specific insight — Newman on development of doctrine, for example — the attribution is woven naturally into the prose.</p>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer>
+  <div class="pub-name">Sturm & Róisín Publishing</div>
+  Fírinne Imprint · Delight, Arkansas<br>
+  studyparish.com
+</footer>
